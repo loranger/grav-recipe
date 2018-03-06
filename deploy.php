@@ -83,7 +83,11 @@ task('pages:upload', function () {
 })->desc('Upload local pages');
 
 task('pages:download', function () {
-    download('user/pages', '{{deploy_path}}/shared/user/pages');
+    $options = [];
+    if (askConfirmation(sprintf('Do you want to remove local pages that does not exists on %s?', get('hostname')))) {
+        $options = ['--delete'];
+    }
+    download('{{deploy_path}}/shared/user/pages/', 'user/pages', ['options' => $options]);
 })->desc('Download remote pages');
 
 task('accounts:upload', function () {
@@ -93,7 +97,11 @@ task('accounts:upload', function () {
 })->desc('Upload local accounts');
 
 task('accounts:download', function () {
-    download('user/accounts', '{{deploy_path}}/shared/user/accounts');
+    $options = [];
+    if (askConfirmation(sprintf('Do you want to remove local accounts that does not exists on %s?', get('hostname')))) {
+        $options = ['--delete'];
+    }
+    download('{{deploy_path}}/shared/user/accounts/', 'user/accounts', ['options' => $options]);
 })->desc('Download remote accounts');
 
 task('grav:clear-cache', function () {
