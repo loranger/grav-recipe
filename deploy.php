@@ -34,7 +34,7 @@ host('stage')
 set('ssh_type', 'native');
 set('ssh_multiplexing', true);
 
-set('repository', `git config --get remote.origin.url`);
+set('repository', trim(`git config --get remote.origin.url`));
 
 set('shared_dirs', [
     'assets',
