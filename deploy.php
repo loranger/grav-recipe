@@ -106,7 +106,7 @@ task('accounts:download', function () {
 
 task('grav:clear-cache', function () {
     cd('{{deploy_path}}/current');
-    run('sudo -u www-data bin/grav clear-cache');
+    run('sudo -u www-data bin/grav clearcache');
 })->desc('Clear Grav caches');
 
 task('grav:backup', function () {
