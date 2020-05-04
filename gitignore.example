@@ -18,6 +18,8 @@ images/*
 !images/.*
 user/accounts/*
 !user/accounts/.*
+user/config/*
+!user/config/.*
 # user/data/*
 # !user/data/.*
 user/pages/*
@@ -28,6 +30,8 @@ user/pages/*
 # !user/themes/.*
 user/localhost/config/security.yaml
 user/config/security.yaml
+user/data/feed/*
+user/data/notifications/*
 
 # OS Generated
 .DS_Store*

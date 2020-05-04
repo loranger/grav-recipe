@@ -39,8 +39,9 @@ set('repository', trim(`git config --get remote.origin.url`));
 set('shared_dirs', [
     'assets',
     'images',
-    'user/data',
     'user/accounts',
+    'user/config',
+    'user/data',
     'user/pages',
     'logs',
     'backup',
@@ -52,8 +53,9 @@ set('writable_dirs', [
     'cache',
     'logs',
     'images',
-    'user/data',
     'user/accounts',
+    'user/config',
+    'user/data',
     'user/pages',
     'tmp',
 ]);
@@ -88,7 +90,22 @@ task('pages:download', function () {
         $options = ['--delete'];
     }
     download('{{deploy_path}}/shared/user/pages/', 'user/pages', ['options' => $options]);
+    runLocally('bin/grav', ['clearcache']);
 })->desc('Download remote pages');
+
+task('config:upload', function () {
+    upload('user/config/', '{{deploy_path}}/shared/user/config');
+    run('sudo chown -R `whoami`:www-data {{deploy_path}}/shared/user/config');
+    run('sudo chmod -R g+rwX {{deploy_path}}/shared/user/config');
+})->desc('Upload local config');
+
+task('config:download', function () {
+    $options = [];
+    if (askConfirmation(sprintf('Do you want to remove local config that does not exists on %s?', get('hostname')))) {
+        $options = ['--delete'];
+    }
+    download('{{deploy_path}}/shared/user/config/', 'user/config', ['options' => $options]);
+})->desc('Download remote config');
 
 task('accounts:upload', function () {
     upload('user/accounts/', '{{deploy_path}}/shared/user/accounts');
