@@ -4,6 +4,9 @@ composer.lock
 vendor/*
 !*/vendor/*
 
+# NPM
+node_modules
+
 # Sass
 .sass-cache
 
